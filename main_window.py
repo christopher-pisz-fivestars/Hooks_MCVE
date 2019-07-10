@@ -53,9 +53,12 @@ class MainPanel(wx.Panel):
         self.sizer_vertical = wx.BoxSizer(wx.VERTICAL)
         self.sizer_vertical.Add(self.horizontal, proportion=1, flag=wx.EXPAND)
         self.SetSizerAndFit(self.sizer_vertical)
+        self.called_back_count = 0
 
     def print_to_text_box(self, event):
-        print "Printing message on Thread with Id {}".format(threading.current_thread().ident)
+        self.called_back_count += 1
+        print "Printing message {} on Thread with Id {}".format(self.called_back_count,
+                                                                threading.current_thread().ident)
         self.textbox.AppendText('MessageName: {}\n'.format(event.MessageName))
         self.textbox.AppendText('Message: {}\n'.format(event.Message))
         self.textbox.AppendText('Time: {}\n'.format(event.Time))
